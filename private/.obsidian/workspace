@@ -1,0 +1,144 @@
+{
+  "main": {
+    "id": "6749f4113b38771b",
+    "type": "split",
+    "children": [
+      {
+        "id": "5e0d69989cebc495",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "커피/테이스팅 노트/예멘 모카마타리 알함다니 내추럴.md",
+            "mode": "source",
+            "source": false
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "1d239e108ad63234",
+    "type": "split",
+    "children": [
+      {
+        "id": "781ec4e02a25cfdd",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "57f1d7faf3c6fc58",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "85c0b00cf9c7e794",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "1be1897be0f8d0b1",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "6d9dc64a2e739908",
+    "type": "split",
+    "children": [
+      {
+        "id": "9082a4c778f8a89c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2958aaacc546acbf",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "커피/테이스팅 노트/예멘 모카마타리 알함다니 내추럴.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "e48d3d83d45cb233",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "커피/테이스팅 노트/예멘 모카마타리 알함다니 내추럴.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "8e12ff525528ddf9",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "967498fbd0fbf2c3",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "커피/테이스팅 노트/예멘 모카마타리 알함다니 내추럴.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "5e0d69989cebc495",
+  "lastOpenFiles": [
+    "커피/테이스팅 노트/콜롬비아 핀카 마라카이 무산소발효 더블 언에어로빅.md",
+    "커피/테이스팅 노트/예멘 모카마타리 알함다니 내추럴.md",
+    "커피/마셔볼 원두.md",
+    "아이디어/mysql plugin.md",
+    "커피/테이스팅 노트/플레이버휠.png",
+    "커피/테이스팅 노트/만델링 G1 TP.md",
+    "커피/테이스팅 노트/코스타리카 따라주.md",
+    "무제노트.md",
+    "커피/테이스팅 노트/케냐 AA.md",
+    "커피/무제노트.md"
+  ]
+}

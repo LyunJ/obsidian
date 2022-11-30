@@ -1,0 +1,146 @@
+{
+  "main": {
+    "id": "60200e3a63d7adfc",
+    "type": "split",
+    "children": [
+      {
+        "id": "71945097c3c70918",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b32eb1a2572e4e89",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "mysql/practice/show replica status(2).md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "95a88cdeb4a536de",
+    "type": "split",
+    "children": [
+      {
+        "id": "a1bdc1fe7d7853f0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "73cce197e9bb173c",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "caa005f4259a01cb",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "31e883068af37c59",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "fae3fe010497d318",
+    "type": "split",
+    "children": [
+      {
+        "id": "97b418d0996a1527",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c10366cc3de64d3f",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "mysql/practice/show replica status(2).md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "f9e6c53896604096",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "mysql/practice/show replica status(2).md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "8c0dd52ffe5d8318",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "d83f40ca0e5c47b2",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "mysql/practice/show replica status(2).md"
+              }
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "active": "b32eb1a2572e4e89",
+  "lastOpenFiles": [
+    "study/무제노트.md",
+    "study/network/TLS.md",
+    "mysql/stored program.md",
+    "mysql/인덱스.md"
+  ]
+}
