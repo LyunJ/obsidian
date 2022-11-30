@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "71945097c3c70918",
+        "id": "e0fc5c1869ba4a27",
         "type": "tabs",
         "children": [
           {
-            "id": "b32eb1a2572e4e89",
+            "id": "2b3bc0232892b791",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "mysql/practice/show replica status(2).md",
+                "file": "mysql/test_data/mysql_test_data.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "mysql/practice/show replica status(2).md",
+                "file": "mysql/test_data/mysql_test_data.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "mysql/practice/show replica status(2).md",
+                "file": "mysql/test_data/mysql_test_data.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,19 +125,30 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "mysql/practice/show replica status(2).md"
+                "file": "mysql/test_data/mysql_test_data.md"
               }
+            }
+          },
+          {
+            "id": "3bb4b74a0e22163b",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {}
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 334.5
   },
-  "active": "b32eb1a2572e4e89",
+  "active": "2b3bc0232892b791",
   "lastOpenFiles": [
+    "mysql/Question/INPLACE 스키마 변경시 온라인 변경 로그를 통한 조회 과정.md",
+    "mysql/practice/show replica status.md",
+    "mysql/practice/show replica status(2).md",
     "study/무제노트.md",
     "study/network/TLS.md",
     "mysql/stored program.md",
