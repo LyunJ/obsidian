@@ -28,3 +28,9 @@ AUTO COMMIT 모드를 사용하면 프로시저의 쿼리 하나하나에 트랜
 ### 의문점
 #### 프로시저 중지 후 두 테이블의 ROW 수가 일치하지 않음
 반복문이 빠르게 돌면서 트랜잭션이 다수 발생하는데, 옵티마이저가 알아서 USER 쿼리를 먼저 모아서 실행시키고 USER_PROFILE을 실행시키는지 모르겠지만, USER보다 USER_PROFILE의 ROW 수가 적었음.
+
+
+### 오해
+#### AUTO_INCREMENT LOCK 이 영향을 줬나?
+AUTO_INCREMENT LOCK은 `innodb_autoinc_lock_mode` 시스템 변수의 영향을 받는다. 하지만 innoDB에서 `innodb_autoinc_lock_mode`는 2이므로 락이 걸리지 않는다. 
+[[AUTO_INCREMENT#innodb_autoinc_lock_mode]]
