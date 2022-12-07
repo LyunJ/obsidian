@@ -13,7 +13,19 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "mysql/test_data/mysql_test_data.md",
+                "file": "mysql/test_data/Dummy Data Insert.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "373be44e4e4e46d6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "mysql/stored program.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +97,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "mysql/test_data/mysql_test_data.md",
+                "file": "mysql/test_data/Dummy Data Insert.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +114,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "mysql/test_data/mysql_test_data.md",
+                "file": "mysql/test_data/Dummy Data Insert.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +137,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "mysql/test_data/mysql_test_data.md"
+                "file": "mysql/test_data/Dummy Data Insert.md"
               }
             }
           },
@@ -146,12 +158,15 @@
   },
   "active": "2b3bc0232892b791",
   "lastOpenFiles": [
-    "mysql/Question/INPLACE 스키마 변경시 온라인 변경 로그를 통한 조회 과정.md",
-    "mysql/practice/show replica status.md",
-    "mysql/practice/show replica status(2).md",
-    "study/무제노트.md",
-    "study/network/TLS.md",
+    "mysql/인덱스.md",
+    "mysql/test_data/Dummy Data Insert.md",
     "mysql/stored program.md",
-    "mysql/인덱스.md"
+    "mysql/practice/show replica status(2).md",
+    "mysql/practice/show replica status.md",
+    "mysql/test_data/mysql_test_data.md",
+    "mysql/practice/Dummy Data Insert.md",
+    "mysql/Question/INPLACE 스키마 변경시 온라인 변경 로그를 통한 조회 과정.md",
+    "mysql/mysql doc/MySQL Server Logs.md",
+    "mysql/mysql doc/The MySQL Data Directory.md"
   ]
 }
