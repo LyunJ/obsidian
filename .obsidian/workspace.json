@@ -13,7 +13,19 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "mysql/stored program.md",
+                "file": "mysql/test_data/Dummy Data Insert.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "c864562fedbcff2c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "mysql/pratice/Cursor와 프로세스.md",
                 "mode": "source",
                 "source": false
               }
@@ -37,13 +49,14 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "mysql/stored program.md",
+                "file": "mysql/test_data/mysql_test_data.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -109,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "mysql/stored program.md",
+                "file": "mysql/pratice/Cursor와 프로세스.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "mysql/stored program.md",
+                "file": "mysql/pratice/Cursor와 프로세스.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -149,7 +162,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "mysql/stored program.md"
+                "file": "mysql/pratice/Cursor와 프로세스.md"
               }
             }
           },
@@ -168,17 +181,17 @@
     "direction": "horizontal",
     "width": 311.5
   },
-  "active": "2b3bc0232892b791",
+  "active": "c864562fedbcff2c",
   "lastOpenFiles": [
     "mysql/test_data/Dummy Data Insert.md",
+    "mysql/pratice/Cursor와 프로세스.md",
+    "mysql/CURSOR.md",
     "mysql/test_data/mysql_test_data.md",
-    "mysql/AUTO_INCREMENT.md",
+    "c.md",
     "mysql/stored program.md",
+    "mysql/AUTO_INCREMENT.md",
     "mysql/인덱스.md",
     "mysql/practice/show replica status(2).md",
-    "mysql/practice/show replica status.md",
-    "mysql/practice/Dummy Data Insert.md",
-    "mysql/Question/INPLACE 스키마 변경시 온라인 변경 로그를 통한 조회 과정.md",
-    "mysql/mysql doc/MySQL Server Logs.md"
+    "mysql/practice/show replica status.md"
   ]
 }
