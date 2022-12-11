@@ -202,4 +202,4 @@ Source_SSL_Verify_Server_Cert: No
 Exec_Source_Log_Pos: 157 -> 509 -> 861 -> 일정 시간이 지난 후 -> 861
 Relay_Log_Space: 1105 -> 1457 -> 1809 -> 일정 시간이 지난 후 -> 709
 
-바이너리 로그 위치 기반 복제 기법에서는 Source 서버의 log position을 저장해 놓고 동기화 한다. Relay log는 Replication I/O Thread에 의해 Source 서버의 로그를 가져와 임시로 저장해 놓고 Replication SQL Thread에 의해 레플리카 서버에 적용된다.  사용되지 않는 로그를 자동으로 삭제한다.
+바이너리 로그 위치 기반 복제 기법에서는 Source 서버의 log position을 저장해 놓고 동기화 한다. Relay log는 Replication I/O Thread에 의해 Source 서버의 로그를 가져와 임시로 저장해 놓고 Replication SQL Thread에 의해 레플리카 서버에 적용된다.  사용되지 않는 로그는 자동으로 삭제한다.

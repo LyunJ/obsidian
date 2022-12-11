@@ -13,43 +13,19 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "mysql/test_data/Dummy Data Insert.md",
+                "file": "private/커피/테이스팅 노트/콜롬비아 핀카 마라카이 무산소발효 더블 언에어로빅.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "c864562fedbcff2c",
+            "id": "040d22ce35e138be",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "mysql/pratice/Cursor와 프로세스.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "db8b376792ebff56",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "mysql/AUTO_INCREMENT.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "373be44e4e4e46d6",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "mysql/test_data/mysql_test_data.md",
+                "file": "private/아이디어/DB 성능 모니터링 웹사이트 OR 윈도우 앱.md",
                 "mode": "source",
                 "source": false
               }
@@ -122,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "mysql/pratice/Cursor와 프로세스.md",
+                "file": "private/아이디어/DB 성능 모니터링 웹사이트 OR 윈도우 앱.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "mysql/pratice/Cursor와 프로세스.md",
+                "file": "private/아이디어/DB 성능 모니터링 웹사이트 OR 윈도우 앱.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -162,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "mysql/pratice/Cursor와 프로세스.md"
+                "file": "private/아이디어/DB 성능 모니터링 웹사이트 OR 윈도우 앱.md"
               }
             }
           },
@@ -181,17 +157,17 @@
     "direction": "horizontal",
     "width": 311.5
   },
-  "active": "c864562fedbcff2c",
+  "active": "040d22ce35e138be",
   "lastOpenFiles": [
+    "private/커피/테이스팅 노트/콜롬비아 핀카 마라카이 무산소발효 더블 언에어로빅.md",
     "mysql/test_data/Dummy Data Insert.md",
-    "mysql/pratice/Cursor와 프로세스.md",
-    "mysql/CURSOR.md",
     "mysql/test_data/mysql_test_data.md",
+    "mysql/Question/INPLACE 스키마 변경시 온라인 변경 로그를 통한 조회 과정.md",
+    "mysql/practice/show replica status.md",
+    "mysql/practice/Cursor와 프로세스.md",
+    "mysql/CURSOR.md",
     "c.md",
     "mysql/stored program.md",
-    "mysql/AUTO_INCREMENT.md",
-    "mysql/인덱스.md",
-    "mysql/practice/show replica status(2).md",
-    "mysql/practice/show replica status.md"
+    "mysql/AUTO_INCREMENT.md"
   ]
 }
