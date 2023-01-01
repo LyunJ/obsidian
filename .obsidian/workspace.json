@@ -95,9 +95,20 @@
             "id": "d20288e970816eb5",
             "type": "leaf",
             "state": {
+              "type": "diff-view",
+              "state": {
+                "file": "private/커피/테이스팅 노트/플레이버휠.png",
+                "staged": true
+              }
+            }
+          },
+          {
+            "id": "efe71a05f4359f17",
+            "type": "leaf",
+            "state": {
               "type": "markdown",
               "state": {
-                "file": "MongoDB/무제 파일.md",
+                "file": "mysql/practice/show replica status.md",
                 "mode": "source",
                 "source": false
               }
@@ -188,7 +199,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "MongoDB/무제 파일.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -205,7 +215,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "MongoDB/무제 파일.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -227,9 +236,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "MongoDB/무제 파일.md"
-              }
+              "state": {}
             }
           },
           {
@@ -265,17 +272,17 @@
       "command-palette:명령어 팔레트 열기": false
     }
   },
-  "active": "3bb4b74a0e22163b",
+  "active": "d20288e970816eb5",
   "lastOpenFiles": [
+    "MongoDB/무제 파일.md",
+    "mysql/practice/show replica status.md",
+    "private/아이디어/DB 성능 모니터링 웹사이트.md",
+    "conflict-files-obsidian-git.md",
     "HBase/row_key.md",
     "mysql/Question/REDO LOG FLUSH는 얼마나 효율적인가.md",
     "mysql/Question/INPLACE 스키마 변경시 온라인 변경 로그를 통한 조회 과정.md",
     "mysql/MySQL 성능 최적화 저자 책 추천.md",
     "mysql/practice/Cursor와 프로세스.md",
-    "private/daily/2022-12-28.md",
-    "mysql/practice/show replica status.md",
-    "mysql/MySQL 8.0 책 요약/THD.md",
-    "mysql/MySQL 8.0 책 요약/인덱스.md",
-    "mysql/MySQL 8.0 책 요약/stored program.md"
+    "private/daily/2022-12-28.md"
   ]
 }
