@@ -83,12 +83,8 @@
             "id": "d3f6f6c3d018e41a",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "HBase/row_key.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           },
           {
@@ -97,8 +93,8 @@
             "state": {
               "type": "diff-view",
               "state": {
-                "file": "private/커피/테이스팅 노트/플레이버휠.png",
-                "staged": true
+                "file": "conflict-files-obsidian-git.md",
+                "staged": false
               }
             }
           },
