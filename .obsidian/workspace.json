@@ -11,36 +11,24 @@
             "id": "2801c59b3581a361",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "private/daily/2022-12-28.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           },
           {
             "id": "fa58bce770c22bc1",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "private/공부할 것/vmstat.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           },
           {
             "id": "7753bf83179f8e7d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "private/공부할 것/OOM killer.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           },
           {
@@ -91,11 +79,8 @@
             "id": "d20288e970816eb5",
             "type": "leaf",
             "state": {
-              "type": "diff-view",
-              "state": {
-                "file": "conflict-files-obsidian-git.md",
-                "staged": false
-              }
+              "type": "empty",
+              "state": {}
             }
           },
           {
@@ -268,17 +253,17 @@
       "command-palette:명령어 팔레트 열기": false
     }
   },
-  "active": "d20288e970816eb5",
+  "active": "3bb4b74a0e22163b",
   "lastOpenFiles": [
-    "MongoDB/무제 파일.md",
-    "mysql/practice/show replica status.md",
-    "private/아이디어/DB 성능 모니터링 웹사이트.md",
-    "conflict-files-obsidian-git.md",
-    "HBase/row_key.md",
-    "mysql/Question/REDO LOG FLUSH는 얼마나 효율적인가.md",
-    "mysql/Question/INPLACE 스키마 변경시 온라인 변경 로그를 통한 조회 과정.md",
-    "mysql/MySQL 성능 최적화 저자 책 추천.md",
-    "mysql/practice/Cursor와 프로세스.md",
-    "private/daily/2022-12-28.md"
+    "private/공부할 것/NUMA.md",
+    "private/공부할 것/OOM killer.md",
+    "private/공부할 것/vmstat.md",
+    "mysql/MySQL 8.0 책 요약/인덱스.md",
+    "mysql/MySQL 8.0 책 요약/AUTO_INCREMENT.md",
+    "mysql/MySQL 8.0 책 요약/CTE.md",
+    "mysql/MySQL 8.0 책 요약/CURSOR.md",
+    "mysql/MySQL 8.0 책 요약/MVCC.md",
+    "mysql/MySQL 8.0 책 요약/partition.md",
+    "mysql/MySQL 8.0 책 요약/stored program.md"
   ]
 }
