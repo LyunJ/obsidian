@@ -35,16 +35,49 @@
             "id": "0db9bfa3a94185d1",
             "type": "leaf",
             "state": {
+              "type": "diff-view",
+              "state": {
+                "file": ".obsidian/community-plugins.json",
+                "staged": false
+              }
+            }
+          },
+          {
+            "id": "dbc686f015f8ebde",
+            "type": "leaf",
+            "state": {
+              "type": "diff-view",
+              "state": {
+                "file": ".obsidian/community-plugins.json",
+                "staged": false
+              }
+            }
+          },
+          {
+            "id": "77e7db3edca369c1",
+            "type": "leaf",
+            "state": {
+              "type": "diff-view",
+              "state": {
+                "file": ".obsidian/community-plugins.json",
+                "staged": false
+              }
+            }
+          },
+          {
+            "id": "28bb2b88857002c6",
+            "type": "leaf",
+            "state": {
               "type": "markdown",
               "state": {
-                "file": "mysql/test_data/Dummy Data Insert.md",
+                "file": "conflict-files-obsidian-git.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -110,7 +143,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "mysql/test_data/Dummy Data Insert.md",
+                "file": "conflict-files-obsidian-git.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +160,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "mysql/test_data/Dummy Data Insert.md",
+                "file": "conflict-files-obsidian-git.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +183,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "mysql/test_data/Dummy Data Insert.md"
+                "file": "conflict-files-obsidian-git.md"
               }
             }
           },
@@ -188,17 +221,17 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "3bb4b74a0e22163b",
+  "active": "28bb2b88857002c6",
   "lastOpenFiles": [
+    "conflict-files-obsidian-git.md",
+    "mysql/test_data/Dummy Data Insert.md",
     "mysql/test_data/schema_change/CHAR(12) -> VARCHAR(12).md",
     "mysql/test_data/mysql_test_data.md",
-    "mysql/test_data/Dummy Data Insert.md",
     "mysql/AUTO_INCREMENT.md",
     "mysql/Data Dump 중 발생한 이슈.md",
     "mysql/Question/INPLACE 스키마 변경시 온라인 변경 로그를 통한 조회 과정.md",
     "mysql/practice/show replica status.md",
     "Pasted image 20221210235347.png",
-    "Pasted image 20221210235326.png",
-    "private/커피/테이스팅 노트/콜롬비아 핀카 마라카이 무산소발효 더블 언에어로빅.md"
+    "Pasted image 20221210235326.png"
   ]
 }
