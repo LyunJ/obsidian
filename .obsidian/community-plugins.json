@@ -1,4 +1,7 @@
 [
   "obsidian-git",
-  "obsidian-dynamic-toc"
+  "obsidian-dynamic-toc",
+  "table-editor-obsidian",
+  "dataview",
+  "obsidian-csv-table"
 ]
