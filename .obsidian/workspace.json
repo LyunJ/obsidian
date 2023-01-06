@@ -70,7 +70,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "conflict-files-obsidian-git.md",
+                "file": "mysql/test_data/schema_change/CHAR(12) -> VARCHAR(12).md",
                 "mode": "source",
                 "source": false
               }
@@ -143,7 +143,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "conflict-files-obsidian-git.md",
+                "file": "mysql/test_data/schema_change/CHAR(12) -> VARCHAR(12).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -160,7 +160,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "conflict-files-obsidian-git.md",
+                "file": "mysql/test_data/schema_change/CHAR(12) -> VARCHAR(12).md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -183,7 +183,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "conflict-files-obsidian-git.md"
+                "file": "mysql/test_data/schema_change/CHAR(12) -> VARCHAR(12).md"
               }
             }
           },
@@ -223,15 +223,15 @@
   },
   "active": "28bb2b88857002c6",
   "lastOpenFiles": [
-    "conflict-files-obsidian-git.md",
-    "mysql/test_data/Dummy Data Insert.md",
     "mysql/test_data/schema_change/CHAR(12) -> VARCHAR(12).md",
+    "mysql/Question/REDO LOG FLUSH는 얼마나 효율적인가.md",
+    "mysql/Question/INPLACE 스키마 변경시 온라인 변경 로그를 통한 조회 과정.md",
     "mysql/test_data/mysql_test_data.md",
+    "mysql/test_data/Dummy Data Insert.md",
+    "conflict-files-obsidian-git.md",
     "mysql/AUTO_INCREMENT.md",
     "mysql/Data Dump 중 발생한 이슈.md",
-    "mysql/Question/INPLACE 스키마 변경시 온라인 변경 로그를 통한 조회 과정.md",
     "mysql/practice/show replica status.md",
-    "Pasted image 20221210235347.png",
-    "Pasted image 20221210235326.png"
+    "Pasted image 20221210235347.png"
   ]
 }
