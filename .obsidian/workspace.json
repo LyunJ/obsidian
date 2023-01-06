@@ -68,11 +68,10 @@
             "id": "28bb2b88857002c6",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "diff-view",
               "state": {
-                "file": "mysql/test_data/schema_change/CHAR(12) -> VARCHAR(12).md",
-                "mode": "source",
-                "source": false
+                "file": "conflict-files-obsidian-git.md",
+                "staged": false
               }
             }
           }
@@ -143,7 +142,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "mysql/test_data/schema_change/CHAR(12) -> VARCHAR(12).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -160,7 +158,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "mysql/test_data/schema_change/CHAR(12) -> VARCHAR(12).md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -182,9 +179,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "mysql/test_data/schema_change/CHAR(12) -> VARCHAR(12).md"
-              }
+              "state": {}
             }
           },
           {
@@ -223,7 +218,7 @@
   },
   "active": "28bb2b88857002c6",
   "lastOpenFiles": [
-    "mysql/test_data/schema_change/CHAR(12) -> VARCHAR(12).md",
+    "mysql/test_data/schema_change/CHAR(12)_VARCHAR(12).md",
     "mysql/Question/REDO LOG FLUSH는 얼마나 효율적인가.md",
     "mysql/Question/INPLACE 스키마 변경시 온라인 변경 로그를 통한 조회 과정.md",
     "mysql/test_data/mysql_test_data.md",
