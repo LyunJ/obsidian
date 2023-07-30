@@ -1,6 +1,7 @@
 [
-  "obsidian-git",
   "obsidian-dynamic-toc",
   "calendar",
-  "obsidian-csv-table"
+  "obsidian-csv-table",
+  "table-editor-obsidian",
+  "obsidian-git"
 ]
