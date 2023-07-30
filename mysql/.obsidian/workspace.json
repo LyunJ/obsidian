@@ -1,0 +1,155 @@
+{
+  "main": {
+    "id": "5ad1c884ae90c534",
+    "type": "split",
+    "children": [
+      {
+        "id": "2464196e877142d6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5e7f068994f1b5f9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "스토어드 프로그램.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "358729061c43df1e",
+    "type": "split",
+    "children": [
+      {
+        "id": "f6e2db3f1ecd62e4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b0d77646465e0cb7",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "ce4174afede5d065",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "eebd11ce649a496d",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 236.5
+  },
+  "right": {
+    "id": "0652743f80e81b5a",
+    "type": "split",
+    "children": [
+      {
+        "id": "e2386ed6e536a1ed",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a62a0c568d302a8a",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "스토어드 프로그램.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "56e09c057c4a151e",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "스토어드 프로그램.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "e675380791b985af",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "88c6f78ae760923f",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "스토어드 프로그램.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "ribbon": {
+    "mostRecentAction": ""
+  },
+  "active": "5e7f068994f1b5f9",
+  "lastOpenFiles": [
+    "스토어드 프로그램.md",
+    "파티션.md",
+    "MySQL 8.0 변경점.md",
+    "mysql doc/The mysql System Schema.md",
+    "mysql doc/The MySQL Data Directory.md",
+    "Question/INPLACE 스키마 변경시 온라인 변경 로그를 통한 조회 과정.md",
+    "mysql doc/단어집/번역하기 애매한 단어 모음.md",
+    "THD.md",
+    "CTE.md",
+    "질문.md"
+  ]
+}
