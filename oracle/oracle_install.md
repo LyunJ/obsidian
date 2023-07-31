@@ -71,6 +71,8 @@ su ora19c
 ```
 
 ```sh
+# ~/.bash_profile
+
 export ORACLE_HOSTNAME=moti
 export TMP=/tmp
 export TMPDIR=$TMP
