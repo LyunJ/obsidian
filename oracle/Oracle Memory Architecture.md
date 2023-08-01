@@ -60,4 +60,178 @@ PGA는 시스템의 다른 프로세스나 스레드에 의해 공유되지 않�
 
 PGA 는 dedicated 나 shared server 프로세스에 의해 요구되어지는 세션 의존적인 변수를 포함하는 메모리 힙 공간이다. 서버 프로세스는 PGA에서 요구하는 메모리 구조를 할당한다.
 
-PGA에 비유되는 것은 파일 점원이 사용하는 임시 카운터톱 작업 공간이다. 이 비유에서 파일 점원은 클라이언트를 대신하여 작업을 수행하는 서버 프로세스이다.
+## PGA의 내부
+PGA는 서로 다른 목적에 의해 분리된다.
+
+다음 그림은 dedicated server session의 PGA 내부이다
+
+![[cncpt219.gif]]
+
+### Private SQL Area
+Private SQL Area는 파싱된 SQL 질의와 프로세스를 위한 다른 세션별 정보를 저장한다.
+
+서버 프로세스가 SQL과 PL/SQL 코드를 실행시키면, 프로세스는 private SQL area를 바인드 변수값을 저장하거나 쿼리 수행 상태 정보나 쿼리 수행 공간을 저장하는데 사용한다.
+
+PGA를 shared SQL area와 혼동하지 말자. 같은 쿼리를 여러 번 수행한다면, 쿼리 플랜은 같지만 PGA 공간은 다를 것이다.
+
+Cursor는 private SQL area를 핸들링한다. 다음 그림과 같이, cursor가 클라이언트 측이나 서버 측의 포인터라고 생각할 수 있다. 왜냐하면 커서는 private SQL area와 밀접하게 연관되어있으며, 용어가 가끔 교차사용되기 때문이다.
+
+![[cncpt324.gif]]
+
+private SQL area는 다음의 공간으로 나눠져 있다:
+- run-time area
+이 영역은 쿼리 수행 상태 정보를 담고 있다. 예를 들어 run-time area는 풀 테이블 스캔에서 반환된 row의 수를 추적한다.
+
+- persistance area
+이 영역은 바인드 변수를 담고 있다. 바인드 변수는 질의가 수행될 때 질의문에게 공급된다. persistent area는 cursor가 닫혔을 때 해제된다.
+
+클라이언트 프로세스는 private SQL area를 관리하는 책임이 있다. Private SQL area의 할당과 반환은 어플리케이션에 크게 의존한다.
+
+대부분의 유저가 자동 커서 핸들링에 의존함에도 불구하고 오라클 데이터베이스 programmatic interfaces는 개발자에게 커서에 대한 통제권을 많이 제공해주고 있다. 일반적으로, 어플리케이션은 다시 사용되지 않을 커서를 닫아야 한다. 
+
+### SQL Work Area
+Work area는 메모리 집약적인 작업에 사용되는 PGA 메모리의 private 할당이다.
+
+예를 들어, 정렬 작업이 정렬 공간을  사용한다. 비슷하게 해시 조인 작업이 해시 테이블을 만들기 위해 해시 공간을 사용한다. 비트맵 머지 또한 비트맵 머지 공간을 사용한다.
+
+만약 작업에 의해 처리된 데이터의 양이 work area에 맞지 않으면, 오라클 데이터베이스는 데이터를 작은 조각으로 넣는다. 이 방법으로, 데이터베이스는 메모리에 올라가지 않은 데이터는 /tmp에 저장한다.
+
+Automatic PGA memory management가 활성화 됐을 때, 데이터베이스는 자동적으로 작업 영역의 크기를 튜닝한다. 
+
+일반적으로 큰 work area를 가지면 성능을 향상시킬 수 있다. 최적으로는, work area의 크기는 관련 SQL 연산자가 할당한 입력 데이터 및 보조 메모리 구조를 수용하기에 충분하다. 만약 그렇지 않으면, 인풋 데이터의 일부를 디스크에 캐싱해야되기 때문에 응답 시간이 늘어난다. 극단적인 사례에선, 만약 work area가 너무 작으면, 데이터베이스는 데이터 조각을 여러번 디스크에 옮겨야 하고, 응답 시간이 기하급수적으로 늘어난다.
+
+
+### Shread server 와 Dedicated Server 에서의 PGA 사용
+| Memory Area                    | Dedicated Server | Shared Server |
+| ------------------------------ | ---------------- | ------------- |
+| 세션 메모리의 특성             | Private          | Shared        |
+| persistent area의 위치         | PGA              | SGA           |
+| DML과 DDL의 run-time area 위치 | PGA              | PGA              |
+
+## Database Buffer Cache
+Database Buffer Cache는 데이터 파일로부터 읽어온 데이터 블록의 복사본이 저장된다.
+
+동시적으로 데이터베이스 인스턴스에 연결된 모든 유저는 버퍼 캐시에 접근할 수 있다.
+
+### 버퍼 캐시의 목적
+- 물리적 I/O의 최적화
+데이터베이스는 캐시의 데이터 블록을 변경시키고, 변경에 대한 메타데이터를 리두 로그 버퍼에 저장한다. commit 이후, 데이터베이스는 데이터 블록을 데이터 파일에 바로 쓰는 것이 아니라 리두 버퍼에서 online redo log에 쓰게 된다. 대신 database writer는 백그라운드에서 lazy write를 한다.
+
+- 자주 액세스하는 블을 버퍼 캐시에 보관하고 자주 액세스하지 않는 블록을 디스크에 기록
+Database Smart Flash Cache가 활성화 될 때, 버퍼 캐시의 일부가 flash cache에 있을 수 있다. 이 버퍼 캐시 확장은 1개 이상의 플래시 메모리를 사용하는 SSD인  flash disk 기기에 저장되어 있다. 데이터베이스는 HDD 를 사용하기 보다 버퍼 캐시를 넣은 SSD를 사용하여 성능 향상을 꾀할 수 있다.
+
+
+### 버퍼 상태
+- Unused
+사용할 수 있는 버퍼
+- Clean
+이 버퍼는 이전에 사용되었으며 이제 특정 시점의 읽기 일관성 있는 블록 버전을 포함한다. 데이터를 포함하고 있지만 checkpoint될 필요는 없다.
+- Dirty
+디스크에 기록되지 않은 변경된 데이터를 저장하고 있다. 데이터베이스는 block을 체크포인트 해야한다.
+
+모든 버퍼는 access mode가 있다
+- pinned
+버퍼가 pinned 된 것은 유저 세션이 접근하고 있는 동안 age out 되지 않는 것을 말함
+- free
+
+
+### 버퍼 모드
+- Current mode
+Current mode get은 db block get으로 불리고, 버퍼 캐시에서 데이터를 검색한 것을 말한다. 예를 들어 커밋 되지 않은 트랜잭션이 블록의 두 row를 업데이트 했다면, current mode get은 이 uncommitted row를 검색한다. 데이터베이스는 db block get을 변경 질의에서 가장 많이 사용하는데, 현재 버전의 블록만 변경해야 하기 때문이다.
+
+- Consistent mode
+consistent read get은 블록의 읽기 일관성 버전 검색이다. 이 검색은 undo data를 사용한다.
+
+### 버퍼 I/O
+논리적 I/O는 버퍼 I/O로 알려져 있는데, 버퍼 캐시의 버퍼에 쓰기나 읽기 작업을 하는 것을 말한다.
+
+#### 버퍼 교체 알고리즘
+버퍼에 대한 접근을 효율적으로 하기 위해, 데이터베이스는 어떤 데이터를 메모리에 캐시하고 어떤 데이터를 디스크로부터 가져올지 결정해야 한다.
+
+데이터베이스는 다음과 같은 알고리즘을 사용한다 :
+- LRU-based, block-level replacement algorithm
+개념적으로 하나의 LRU만 사용하지만 데이터 동시성을 위해 데이터베이스는 많은 LRU들을 활용한다.
+
+- Temperature-based, object-level replacement algorithm
+오라클 12c release 1에서 시작된 Automatic big table caching은 다음 시나리오에 맞게 다른 알고리즘을 사용하여 스캔한다
+- Parallel queries
+싱글 인스턴스와 RAC에서는 parallel 쿼리는 big table cache를 사용할 수 있다.
+- Serial queries
+싱글 인스턴스에서만 serial 쿼리는 big table cache를 사용할 수 있다.
+
+### 버퍼 쓰기
+database writer 프로세스가 cold, dirty 버퍼를 디스크로 쓴다
+
+- 서버 프로세스가 clean buffer를 찾지 못할 때
+- 데이터베이스가 checkpoint를 해야 할 때
+- 테이블스페이스가 read-only상태로 바뀌거나 offline 될 때
+
+### 버퍼 읽기
+사용되지 않은 버퍼의 숫자가 적으면, 데이터베이스는 버퍼를 버퍼 캐시로부터 제거해야한다.
+
+- Flash cache가 비활성화 됐을 때
+데이터베이스는 각각의 clean buffer를 필요할 때 재사용하고, 덮어쓴다. 만약 덮어씌워진 버퍼가 나중에 필요하게 된다면 데이터베이스는 디스크로부터 다시 읽어와야 한다.
+- Flash cache 활성화 됐을 때
+DBW는 clean buffer의 body를 flash cache로 씀으로써 메모리 버퍼를 재사용  할 수 있다. 데이터베이스는 flash cache의 버퍼 body의 위치와 상태를 추적하기 위해 버퍼 헤더를 LRU list에 저장한다.
+
+1. 서버 프로세스가 버퍼 캐시에서 모든 버퍼를 탐색한다
+2. 서버 프로세스가 flash cache LRU list의 버퍼 헤더를 탐색한다
+3. 만약 프로세스가 버퍼를 메모리에서 찾지 못하면 다음과 같은 단계를 밟는다
+	1. 디스크의 데이터 파일로부터 블록을 복사해 온다(physical read)
+	2. 버퍼에서 logical read를 수행한다
+![[cncpt304.gif]]
+
+Buffer cache hit ratio는 데이터베이스가 디스크를 사용하지 않고 버퍼 캐시에서 데이터를 가져온 빈도 수를 측정한다.
+
+데이터베이스는 데이터 파일 뿐만 아니라 임시 파일로부터 데이터를 읽을 수 있다. 이는 작업 중 메모리가 부족해 강제적으로 임시 테이블에 쓰고 돌려받는 것으로, 버퍼 캐시를 거치지 않기 때문에 논리적 I/O가 발생하지 않는다.
+
+#### Buffer touch count
+데이터베이스는 LRU list에 접근한 버퍼의 접근 빈도수를 touch count를 통해 측정한다. 이 매카니즘은 LRU list를 셔플하지 않고 pinned된 버퍼의 카운터를 증가시킬 수 있도록 한다.
+
+> 데이터베이스는 물리적으로 메모리를 움직이지 않고, 리스트의 포인터만 움직인다
+
+카운터는 3초가 지나고 버퍼가 pinned 되어야 증가한다. 이 3초 룰은 많은 접근에 의해 버퍼 카운팅이 폭발적으로 증가하는 것을 막기 위함이다.
+
+## 버퍼 풀
+버퍼 풀은 버퍼의 집합이다.
+데이터베이스의 버퍼 캐시는 1개 이상의 버퍼 풀로 나뉠 수 있다. 버퍼 풀은 버퍼 캐시와 비슷한 알고리즘으로 다뤄진다.
+
+데이터를 버퍼 캐시에 유지하거나 데이터 블록을 사용한 직후에 버퍼 새 데이터에 사용할 수 있도록 하는 별도의 버퍼 풀을 수동으로 구성할 수 있다.  캐시로부터 블록이 age out 되는 방법을 컨트롤 하기 위해 스키마 오브젝트를 적절한 버퍼 풀에 할당할 수도 있다.
+
+가능한 버퍼 풀은 다음과 같다 :
+- Default Pool : 블록이 일반적으로 캐시 되는 곳
+- Keep Pool : 이 풀은 자주 액세스했지만 공간이 부족하여 기본 풀이 만료된 블록을 대상으로 한다.
+- Recycle Pool : 이 풀은 자주 사용되지 않은 블록을 대상으로 한다. 불필요한 공간을 차지하는 오브젝트를 대상으로 한다.
+
+![[cncpt220 2.gif]]
+
+
+### 버퍼와 풀 테이블 스캔
+데이터베이스는 복잡한 알고리즘을 사용하여 테이블 스캔을 관리한다. 기본적으로 버퍼가 디스크로부터 읽힌다면 데이터베이스는 버퍼를 LRU list의 중간에 넣어 hot block이 캐시에 남아있도록 한다. 이로서 디스크를 다시 읽지 않아도 되게 한다.
+
+Full table scan의 경우 순서적으로 table high water mark 아래에서 모든 row를 읽는다.
+
+#### 풀 테이블 스캔의 Default Mode
+기본적으로, 데이터베이스는 풀 테이블 스캔에 대한 보수적인 접근을 하는데, 테이블 사이즈가 작을 경우에만 작은 테이블을 메모리에 로드한다.
+
+중간 크기의 테이블을 캐시해야 하는지 여부를 결정하기 위해 데이터베이스는 마지막 테이블 검색, 버퍼 캐시의 오래된 타임스탬프 및 버퍼 캐시에 남아 있는 공간 사이의 간격을 통합하는 알고리즘을 사용한다.
+
+매우 큰 테이블의 경우, 데이터베이스는 형식적으로 버퍼 캐시가 채워지지 않도록 direct path read를 통해 블록을 PGA에 직접 로드하고 SGA를 완전히 우회한다.
+
+중간 크기의 테이블은 direct path read를 할 수도 있고 cache read를 할 수도 있는데, cache read를 할 경우에는 LRU list의 가장 마지막에 넣는다.
+
+#### Prarllel Query Excution
+Full table scan을 수행할 때, 데이터베이스는 multiple parallel excution server를 통해 응답 시간을 향상시킬 수 있다.
+
+형식적으로, 병렬 쿼리는 리소스 사용량 때문에 데이터 웨어하우스같은 동시성이 적은 환경에서 사용된다.
+
+#### CACHE Attribute
+CACHE 속성을 적용시키면, 데이터베이스는 버퍼 캐시의 블록을 강제로 pin 하지 않고(LRU list의 중간에 넣는 등의 알고리즘을 하지 않고), 다른 테이블 블록과 같은 방법으로 캐싱한다.
+
+#### KEEP 속성
+버퍼 풀에 버퍼를 저장하는 대신, Keep 풀에 저장한다.
+
+#### Force Full Database Caching Mode
+NOCACHE LOBS를 포함해 모든 데이터베이스를 버퍼 캐시에 강제적으로 적재한다.
+
+오라클은 force full database caching 모드를 각각의 인스턴스의 버퍼 캐시 사이즈가 데이터베이스 사이즈 보다 클 때 사용하기를 권장한다.
