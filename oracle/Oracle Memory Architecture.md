@@ -235,3 +235,83 @@ CACHE 속성을 적용시키면, 데이터베이스는 버퍼 캐시의 블록�
 NOCACHE LOBS를 포함해 모든 데이터베이스를 버퍼 캐시에 강제적으로 적재한다.
 
 오라클은 force full database caching 모드를 각각의 인스턴스의 버퍼 캐시 사이즈가 데이터베이스 사이즈 보다 클 때 사용하기를 권장한다.
+
+## Redo Log Buffer
+리두 로그 버퍼는 변경을 표현하는 redo entry를 저장하는 SGA에 존재하는 링형 버퍼이다.
+
+Redo record는 DML 이나 DDL에 의해 만들어진 변경을 재구성하는데 필요한 정보를 담고 있는 데이터 구조이다. 데이터베이스 복구는 redo entry를 잃어버린 변경을 재구성하기 위해 데이터파일에 적용시킨다.
+
+데이터베이스 프로세스는 유저 메모리의 redo entry를 SGA의 redo log buffer로 복사한다. Redo entry는 버퍼의 연속적인 공간을 차지한다. 백그라운드 프로세스인 log writer process는 redo log buffer를 디스크의 redo log group에 쓴다.
+
+![Description of Figure 14-8 follows](https://docs.oracle.com/en/database/oracle/oracle-database/19/cncpt/img/cncpt226.gif "Description of Figure 14-8 follows")
+
+
+LGWR은 DBW가 디스크에 데이터 블록 쓰기를 수행하는 동안 연속적인 쓰기를 수행한다.
+
+## 공유 풀
+Shared pool은 프로그램 데이터의 다양한 타입을 캐싱한다.
+
+예를 들어, 공유 풀은 parsed SQL, PL/SQL code, system parameter, data dictionary 정보를 저장한다. 공유 풀은 데이터베이스에서 일어나는 거의 모든 작업을 포함하고 있다. ![Description of Figure 14-9 follows](https://docs.oracle.com/en/database/oracle/oracle-database/19/cncpt/img/cncpt225.gif "Description of Figure 14-9 follows")
+
+### Library Cache
+Library cache는 실행 가능한 SQL과 PL/SQL 코드를 저장하는 공유 풀 메모리 구조이다.
+
+캐시는 공유 SQL과 PL/SQL 공간을 포함하고 libarary cache handle과 락 같은 구조를 컨트롤한다.
+
+#### Shared SQL Areas
+데이터베이스는 shared SQL area를 처음 발생하는 SQL 질의를 처리하기 위해 사용한다. 이 영역은 parsed SQL 질의와 실행 계획을 포함한다. 오직 하나의 shared SQL area가 유일한 질의를 위해 존재한다. 같은 SQL을 질의하는 각각의 유저의 private SQL area는 같은 shared SQL area를 가리킨다.
+
+데이터베이스는 다음과 같은 단계를 밟는다:
+1. shared SQL area가 동일한 질의문을 가지는지 확인하기 위해 shared pool을 확인한다.
+	1. 만약 동일한 질의문이 존재한다면, 데이터베이스는 실행을 위해 shared SQL area를 사용한다
+	2. 만약 동일한 질의문이 존재하지 않는다면, 데이터베이스는 새로운 shared SQL area를 할당한다.
+2. 세션 대신 private SQL area를 할당한다
+![Description of Figure 14-10 follows](https://docs.oracle.com/en/database/oracle/oracle-database/19/cncpt/img/cncpt252.gif "Description of Figure 14-10 follows")
+
+### Data Dictionary Cache
+Data dictionary는 데이터베이스와 데이터베이스 구조와 유저에 대한 정보를 포함하는 테이블과 뷰의 집합이다.
+
+오라클 데이터베이스는 데이터 딕셔너리를 SQL statement가 파싱될 때 접근한다.
+오라클 데이터베이스는 지정된 장소에 저장된 딕셔너리 데이터에 접근한다.
+- 데이터 딕셔너리 캐시
+- Library 캐시
+
+### Server Result Cache
+server result cache는 shared pool 내부에 있는 메모리 풀이다. 버퍼 풀과는 다르게 server result cache는 데이터 블록이 아닌 result set을 가지고 있다.
+
+### Reserved Pool
+Reserved pool은 오라클 데이터베이스가 연속적이고 큰 메모리 청크를 사용할 수 있는 공유 풀 안에 있는 메모리 공간이다.
+
+데이터베이스는 공유 풀을 청크 단위로 할당받는다. Chunking은 5KB가 넘는 큰 오브젝트가 하나의 연속적인 공간을 요구하지 않고 적재될 수 있도록 한다. 이 방법으로 데이터베이스는 파편화로 인한 연속적인 메모리 공간의 부족 가능성을 줄인다.
+
+## Large Pool
+Large pool은 optional 메모리 공간으로 shared pool에 적절한 크기보다 큰 메모리 할당을 위한 것이다.
+
+Large pool은 다음에게 큰 메모리 할당을 제공한다 :
+- shared server의 UGA
+- 병렬 실행에서의 메시지 버퍼
+- Recovery Manager I/O slave의 버퍼
+- deferred insert 버퍼
+
+![Description of Figure 14-11 follows](https://docs.oracle.com/en/database/oracle/oracle-database/19/cncpt/img/cncpt221.png "Description of Figure 14-11 follows")
+
+### Large Pool Memory Management
+Large Pool은 메모리의 일부가 age out 될 수 있도록 LRU list를 사용하는 shared pool과는 다르게 관리한다.
+
+Large Pool은 LRU list를 가지지 않는다. 데이터베이스가 large pool 메모리를 데이터베이스 세션에 할당하면, 이 메모리는 세션에서 해제하지 않으면 해제할 수 없다. 메모리의 일부가 해제되면, 다른 프로세스가 사용할 수 있다. 세션 메모리를 large pool에 할당함으로서 데이터베이스는 shared pool에서 일어날 수 있는 파편화를 막을 수 있다.
+
+### Large Pool Buffer for deferred insert
+deferred insert를 위해 데이터베이스는 large pool에 버퍼를 할당한다.
+
+## Java Pool
+Java pool은 모든 세션 특정된 자바 코드와 JVM의 데이터를 저장하는 공간이다.
+
+Dedicated server 연결에서는, Java pool은 각각의 자바 클래스의 공유된 부분을 포함하고 코드 벡터나 메소드 등을 포함한다. 하지만 각각의 세션의 자바 상태는 저장하지 않는다. Shared server에서는 pool은 각각의 클래스의 공유 부분을 포함하고 세션 상태 저장에 사용되는 몇몇 UGA도 저장한다.
+
+## Fixed SGA
+Fixed SGA는 내부 하우스키핑 영역이다.
+fixed SGA는 다음을 포함한다 :
+- 백그라운드 프로세스가 접근해야할 데이터베이스와 인스턴스의 일반적인 정보.
+- Lock 같은 프로세스 간에 알고 있어야하는 정보.
+fixed SGA는 오라클 데이터베이스에 의해 결정되고, 변경할 수 없다. Release에 따라 이 크기는 달라진다.
+
