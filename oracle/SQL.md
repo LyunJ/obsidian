@@ -79,4 +79,111 @@ Hint는 옵티마이저에게 지시하는 것 처럼 행동하는 주석이다.
 ### SQL Parsing
 SQL 프로세스의 첫번째 단계는 파싱이다. 이 단계는 다른 루틴에서 사용할 수 있도록 SQL 질의를 쪼개 데이터 구조로 만드는 것을 포함한다. 
 
-어플리케이션이 SQL 질의를 실행시키면, 어플리케이션은 parse call을 데이터베이스에 보내 질의 실행을 준비한다. Parse call은 cursor를 열거나 생성한다.
+어플리케이션이 SQL 질의를 실행시키면, 어플리케이션은 parse call을 데이터베이스에 보내 질의 실행을 준비한다. Parse call은 세션의 priave SQL area를 다루는 cursor를 열거나 생성한다. cursor와 private SQL area는 PGA 안에 있다.
+
+parse call  동안, 데이터베이스는 다음과 같은 확인을 한다.
+- Syntax Check
+- Semantic Check
+- Shared Pool Check
+
+#### Syntax Check
+오라클 데이터베이스는 각각의 SQL 질의의 syntactic 유효성을 검증한다.
+
+#### Semantic Check
+질의의 Semantic은 질의의 의미를 말한다. 그러므로 semantic check은 질의가 의미있는지를 결정한다. 예를들어 질의의 column과 오브젝트가 존재하는지 여부다.
+
+#### Shared Pool Check
+Parse 단계에서, 데이터베이스는 질의 처리 중 자원을 사용하는 단계를 생략할 수 있을지 결정하기 위해 shared pool check를 한다. 이를 해내기 위해 데이터베이스는 해싱 알고리즘을 통해 모든 SQL 질의에 대해 hash 값을 생성한다. 질의의 해시 값은 V$SQL.SQL_ID에 보여지는 SQL ID 이다.
+
+유저가 SQL 질의를 실행시키면, 데이터베이스는 shared SQL area를 탐색하여 같은 해시 값을 가진 질의가 있는지 확인한다. SQL 질의의 해시 값은 다음 값으로부터 중복되지 않는다 :
+- 질의의 메모리 주소
+	- 오라클 데이터베이스는 SQL ID를 사용하여 조회 테이블에서 키 읽기를 수행한다. 이러한 방식으로 데이터베이스는 가능한 질의의 메모리 주소를 얻는다.
+- 질의의 실행 계획의 해시
+	- SQL 질의는 shared pool에 다수의 계획을 가질 수 있다. 각각의 계획은 다른 hash 값을 가진다. 만약 같은 SQL ID가 다수의 계획에 대한 해시 값을 가진다면 데이터베이스는 이 SQL ID가 다수의 계획을 가진 것을 알 수 있다.
+
+Parse 작업은 hash check이나 질의의 타입에 따라 다음의 카테고리로 분류된다 :
+- 하드 파싱
+	- 만약 오라클이 존재하는 코드를 재사용하지 않는다면, 어플리케이션 코드의 새로운 실행 가능한 버전을 빌드할 것이다. 이 작업은 하드 파싱이라고 불리고, 또는 library cache miss라고 불린다.
+- 소프트 파싱
+	- 소프트 파싱은 하드 파싱의 반대말로, library cache hit이라고 한다.
+
+![[cncpt251.gif]]
+
+만약 공유 풀에 있는 질의읭 해시 값이 동일하더라도 semantic 검사를 통해 의미가 동일한지 여부를 확인한다.
+
+```
+CREATE TABLE my_table ( some_col INTEGER );
+SELECT * FROM my_table;
+```
+
+다음과 같은 SQL을 서로 다른 유저가 실행시키는 상황을 가정하자. 동일한 syntax를 실행하더라도 다른 유저가 실행시킨 create table은 서로 다른 object를 생성한다.
+
+```
+ALTER SYSTEM FLUSH SHARED_POOL;
+SELECT * FROM my_table;
+
+ALTER SESSION SET OPTIMIZER_MODE=FIRST_ROWS;
+SELECT * FROM my_table;
+
+ALTER SESSION SET SQL_TRACE=TRUE;
+SELECT * FROM my_table;
+```
+다음 질의와 같이 서로 다른 옵티마이저 환경에서 실행된 같은 `SELECT`문이라도 Hard Parsing이 강제된다.
+
+
+### SQL Optimization
+Overview of the Optimizer에서 설명했듯이, 쿼리 최적화는 SQL 질의를 실행시키는 수단 중 가장 효과적인 방법을 선택하는 과정이다.
+
+데이터베이스는 모든 유일한 DML 질의에 대해 최소 한번은 하드 파싱을 진행하고, 파싱하는 동안 최적화를 수행한다. DDL은 subquery에 DML을 포함하지 않는 한 최적화되지 않는다.
+
+### SQL Row Source Generation
+Row source generator은 옵티마이저로부터 실행 계획을 받거나 데이터베이스의 나머지 부분에서 사용할 수 있는 쿼리 계획이라는 반복 계획을 생성하는 소프트웨어다. 반복 계획은 SQL 가상 시스템에서 실행될 때 결과 집합을 생성하는 바이너리 프로그램이다.
+
+쿼리 플랜은 단계의 조합으로 이루어져 있다. 각각의 단계는 row 집합을 리턴한다. 집합 내의 Row는 다음 단계나 마지막 단계에 사용되고, 어플리케이션으로 반환된다.
+
+Row source는 반복적으로 row를 처리할 수 있는 통제 구조와 함께 실행 계획의 단계에 따라 반환되는 row 집합이다. Row source는 테이블, 뷰, 조인의 결과나 그루핑의 결과가 될 수 있다.
+
+Row source generator는 row source의 집합인 row source tree를 생성한다. Row source tree는 다음과 같은 정보를 보여준다 :
+- 질의에 의한 테이블 정렬
+- 질의에 언급된 각각의 테이블을 위한 접근 방법
+- 질의의 조인 작업에 의해 영향을 받은 테이블 조인 방법
+- 필터, 정렬, 집계같은 데이터 작업
+
+
+### SQL Excution
+SQL 실행하는 동안, SQL engine은 각각의 row source generator에서 생성된 트리의 각각의 row source를 실행한다. 이 단계는 DML 처리에서는 필수적이다.
+
+![[cncpt001.gif]]
+
+위 그림은 parse tree라고 불리는 excution tree이다. 단계 단계마다의 row source의 흐름을 보여준다. 일반적으로 실행의 순서는 plan의 반대 순서인데, 따라서 plan은 밑에서부터 읽어야한다.  작업 column의 초기 공백은 계층 관계를 나타낸다. 예를 들어 작업 이름 앞에 공백 두 개가 있으면 이 연산은 공백 한 개가 선생하는 연산의 자식이다.
+
+위 그림에서 각각의 트리의 노드는 row source 처럼 행동한다. 이는 각각의 실행 계획의 단계가 데이터베이스로부터 row를 가져오거나 row의 집합을 input으로 수용한다는 뜻이다. SQL 엔진은 각각의 row source를 다음과 같이 수행한다 :
+
+- 검은 박스로부터 지시된 단계는 데이터베이스로부터 물리적으로 데이터를 가져온다. 이 단계는 데이터베이스로부터 데이터를 가져오기 위한 access path이거나 기술이다.
+- 하얀 박스로부터 지시된 단계는 row source에서 작동된다.
+
+실행 중에, 데이터베이스는 메모리에 데이터가 없다면 디스크로부터 데이터를 읽어 메모리에 적재한다. 데이터베이스는 또한 SQL 수행 동안 lock이나 latch같은 데이터 무결성을 보장하는데 필요한 잠금 및 래치를 제거하고 SQL 실행 중에 변경된 내용을 기록한다. SQL 질의의 마지막 처리 단계는 커서를 닫는 것이다.
+
+## Oracle Database가 DML을 처리하는 방법
+
+대부분의 DML 문에는 쿼리 구성 요소가 있습니다. 쿼리에서, 커서 실행은 쿼리의 결과를 결과 집합이라고 하는 행 집합에 배치합니다.  
+  
+결과 집합 행은 한 번에 또는 그룹으로 가져올 수 있습니다. 페치 단계에서 데이터베이스는 행을 선택하고 쿼리에 의해 요청되면 해당 행을 순서화합니다. 각 연속적인 페치는 마지막 행이 페치될 때까지 결과의 다른 행을 검색합니다.  
+  
+일반적으로 데이터베이스는 마지막 행을 가져올 때까지 쿼리에 의해 검색될 행의 특정 수를 결정할 수 없습니다. 오라클 데이터베이스는 가져오기 호출에 응답하여 데이터를 검색하므로 데이터베이스가 더 많은 행을 읽을수록 더 많은 작업을 수행합니다. 일부 쿼리의 경우 데이터베이스는 첫 번째 행을 가능한 빨리 반환하지만 다른 쿼리의 경우 첫 번째 행을 반환하기 전에 전체 결과 집합을 만듭니다.
+## Oracle Database가 DDL을 처리하는 방법
+
+Oracle Database는 DML과 다르게 DDL을 처리합니다. 예를 들어, 테이블을 만들 때 데이터베이스는 CREATE TABLE 문을 최적화하지 않습니다. 대신 Oracle Database는 DDL 문을 구문 분석하고 명령을 수행합니다.
+
+데이터베이스는 데이터 사전에서 개체를 정의하는 수단이기 때문에 DDL을 다르게 처리합니다. 일반적으로 Oracle Database는 DDL 명령을 실행하기 위해 많은 재귀적 SQL 문을 구문 분석하고 실행해야 합니다. 다음과 같이 테이블을 생성한다고 가정합니다:
+```
+CREATE TABLE mytable (mycolumn INTEGER);
+```
+일반적으로 데이터베이스는 수십 개의 재귀적 문을 실행하여 이전 문을 실행합니다. 재귀적 SQL은 다음과 같은 작업을 수행합니다:
+- CREATE TABLE 문을 실행하기 전에 commit을 실행한다.
+- 테이블을 생성하기에 충분한 유저 권한을 가지고 있는지 확인한다.
+- 테이블이 어떤 테이블스페이스에 저장되어야하는지 결정
+- 테이블 스페이스 할당량을 초과하지 않았는지 확인
+- 같은 이름의 스키마가 없는지 확인
+- 테이블을 정의하는 row를 data dictionary에 삽입
+- DDL문이 성공한 경우 commit을 실행하고 실패한 경우 rollback을 실행
