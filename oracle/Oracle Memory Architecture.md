@@ -101,13 +101,15 @@ Automatic PGA memory management가 활성화 됐을 때, 데이터베이스는 �
 일반적으로 큰 work area를 가지면 성능을 향상시킬 수 있다. 최적으로는, work area의 크기는 관련 SQL 연산자가 할당한 입력 데이터 및 보조 메모리 구조를 수용하기에 충분하다. 만약 그렇지 않으면, 인풋 데이터의 일부를 디스크에 캐싱해야되기 때문에 응답 시간이 늘어난다. 극단적인 사례에선, 만약 work area가 너무 작으면, 데이터베이스는 데이터 조각을 여러번 디스크에 옮겨야 하고, 응답 시간이 기하급수적으로 늘어난다.
 
 
-### Shread server 와 Dedicated Server 에서의 PGA 사용
+### Shared server 와 Dedicated Server 에서의 PGA 사용
 | Memory Area                    | Dedicated Server | Shared Server |
 | ------------------------------ | ---------------- | ------------- |
 | 세션 메모리의 특성             | Private          | Shared        |
 | persistent area의 위치         | PGA              | SGA           |
 | DML과 DDL의 run-time area 위치 | PGA              | PGA              |
 
+
+# SGA
 ## Database Buffer Cache
 Database Buffer Cache는 데이터 파일로부터 읽어온 데이터 블록의 복사본이 저장된다.
 
@@ -154,11 +156,12 @@ consistent read get은 블록의 읽기 일관성 버전 검색이다. 이 검�
 
 - Temperature-based, object-level replacement algorithm
 오라클 12c release 1에서 시작된 Automatic big table caching은 다음 시나리오에 맞게 다른 알고리즘을 사용하여 스캔한다
-- Parallel queries
-싱글 인스턴스와 RAC에서는 parallel 쿼리는 big table cache를 사용할 수 있다.
-- Serial queries
-싱글 인스턴스에서만 serial 쿼리는 big table cache를 사용할 수 있다.
+	- Parallel queries
+	싱글 인스턴스와 RAC에서는 parallel 쿼리는 big table cache를 사용할 수 있다.
+	- Serial queries
+	싱글 인스턴스에서만 serial 쿼리는 big table cache를 사용할 수 있다.
 
+테이블이 메모리에 맞지 않는다면, 데이터베이스는 어떤 버퍼를 access pattern에 기초하여 캐싱할지 결정한다. 예를 들어, 만약 테이블의 95%가 메모리에 들어간다면, 메모리에서 블록을 읽고 디스크로 쓰는 것을 반복하기 보다 데이터베이스는 5%를 디스크에 남겨놓을 것이다. 이 현상을thrashing이라고 한다. 다수의 큰 오브젝트를 캐싱할 때 데이터베이스는 더 인기있는 테이블을 뜨겁다고 생각하고 반대를 차갑다고 생각하고, 이는 블록의 캐싱에 영향을 끼친다.
 ### 버퍼 쓰기
 database writer 프로세스가 cold, dirty 버퍼를 디스크로 쓴다
 
@@ -241,7 +244,7 @@ NOCACHE LOBS를 포함해 모든 데이터베이스를 버퍼 캐시에 강제�
 
 Redo record는 DML 이나 DDL에 의해 만들어진 변경을 재구성하는데 필요한 정보를 담고 있는 데이터 구조이다. 데이터베이스 복구는 redo entry를 잃어버린 변경을 재구성하기 위해 데이터파일에 적용시킨다.
 
-데이터베이스 프로세스는 유저 메모리의 redo entry를 SGA의 redo log buffer로 복사한다. Redo entry는 버퍼의 연속적인 공간을 차지한다. 백그라운드 프로세스인 log writer process는 redo log buffer를 디스크의 redo log group에 쓴다.
+데이터베이스 프로세스는 유저 메모리의 redo entry를 SGA의 redo log buffer로 복사한다. Redo entry는 연속적인 버퍼 공간이. 백그라운드 프로세스인 log writer process는 redo log buffer를 디스크의 redo log group에 쓴다.
 
 ![Description of Figure 14-8 follows](https://docs.oracle.com/en/database/oracle/oracle-database/19/cncpt/img/cncpt226.gif "Description of Figure 14-8 follows")
 

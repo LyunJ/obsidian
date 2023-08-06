@@ -97,7 +97,7 @@ PMONdms Cleanup Main Process(CLMN)에 정리 작업을 위임한다. 비정상 �
 CLMN은 주기적으로 종료된 프로세스, 종료된 세션, 트랜잭션, 네트워크 커넥션, 쉬는 상태의 세션, 분리된 트랜잭션, 분리된 네트워크 커넥션의 정리를 담당한다.
 
 ##### Cleanup Helper Processes(CLnn)
-CLMN은 정리 작엄을 CLnn helper process에 위임한다.
+CLMN은 정리 작업을 CLnn helper process에 위임한다.
 
 CLnn 프로세스는 종료된 프로세스와 세션의 정리를 보조한다. Helper 프로세스의 수는 수행할 정리 작업의 양과 정리의 현재 효율에 비례한다.
 
@@ -126,7 +126,7 @@ Listener registration process(LREG)는 Oracle Net Listener에 데이터베이스
 인스턴스가 시작될 때, LREG는 리스너를 polling 하여 실행중인지 여부를 확인한다. 만약 리스너가 실행중이면, LREG는 관련 파라미터를 제공한다. 만약 실행중이 아니면, LREG는 주기적으로 접근하려고 한다.
 
 #### System Monitor Process (SMON)
-System monitor process(SMON)은 다양한 시스템 레벨 정리 의무를 가진다.
+System monitor process(SMON)은 다양한 시스템 수준의 정리 의무를 가진다.
 
 임무는 다음과 같다 :
 - 인스턴스 복구. 필요하다면, 인스턴스 시작 시 인스턴스 복구 수행. 오라클 RAC에서는, 하나의 데이터베이스 인스턴스의 SMON 프로세스는 실패한 인스턴스의 복구를 수행할 수 있다.
@@ -187,5 +187,5 @@ Manageability monitor lite process(MMNL)은 SGA의 Active Session History(ASH)�
 ##### Recoverer Process(RECO)
 분산 데이터베이스에서는 recoverer process(RECO)가 분산 트랜잭션의 장애를 자동적으로 해결한다.
 
-노드의 RECO 프로세스는 의심스러운 분산 트랜잭션과 관련된 다른 데이터베이스에 자동으로 연결된 다른 데이터베이스에 자동으로 연결된. RECO가 데이터베이스 사이에서 커넥션을 재생성할 때, 자동적으로 모든 의심스로운 트랜잭션을 해결하여 각 데이터베이스의 보류 트랜잭션 테이블에서 해결된 트랜잭션에 해당하는 행을 제거한다.
+노드의 RECO 프로세스는 의심스러운 분산 트랜잭션과 관련된 다른 데이터베이스에 자동으로 연결된 다른 데이터베이스에 자동으로 연결된 RECO가 데이터베이스 사이에서 커넥션을 재생성할 때, 자동적으로 모든 의심스로운 트랜잭션을 해결하여 각 데이터베이스의 보류 트랜잭션 테이블에서 해결된 트랜잭션에 해당하는 행을 제거한다.
 
