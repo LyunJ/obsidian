@@ -1,0 +1,14 @@
+{
+	"nodes":[
+		{"type":"text","text":"DB Manage Server\n- Java","id":"ed1aabfda675ae82","x":-162,"y":-126,"width":294,"height":152},
+		{"type":"text","text":"DB","id":"5626d7d7e92fa894","x":686,"y":-88,"width":294,"height":76},
+		{"type":"text","text":"WEB View","id":"8d0b0ac8a36078af","x":-680,"y":-88,"width":294,"height":76},
+		{"type":"text","text":"Backend Server\n- Java","id":"4b034a7ec1db1cc5","x":262,"y":-380,"width":294,"height":127}
+	],
+	"edges":[
+		{"id":"e97aa81f44e29b1d","fromNode":"ed1aabfda675ae82","fromSide":"right","toNode":"5626d7d7e92fa894","toSide":"left","label":"DB 테이블 구축, 더미 데이터 삽입"},
+		{"id":"d5ba37821e47b7a8","fromNode":"4b034a7ec1db1cc5","fromSide":"right","toNode":"5626d7d7e92fa894","toSide":"top","fromEnd":"arrow","label":"N Times Query"},
+		{"id":"0001a010aa558808","fromNode":"ed1aabfda675ae82","fromSide":"top","toNode":"4b034a7ec1db1cc5","toSide":"left","fromEnd":"arrow","label":"N Times Request"},
+		{"id":"31e9ed6ed726cc19","fromNode":"ed1aabfda675ae82","fromSide":"left","toNode":"8d0b0ac8a36078af","toSide":"right"}
+	]
+}

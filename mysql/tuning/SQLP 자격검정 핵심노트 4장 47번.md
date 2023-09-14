@@ -339,7 +339,7 @@ NL Join과 실행 시간이 조금 더 줄어들었다.
 | Hash Join 사용 | 1 m 0 s 610 ms | 1 m 11 s 799 ms | 1 m 59 s 856 ms | 50 s 436 ms |
 | Hash Join (full table scan) | - |  34 s 998 ms | 35 s 599 ms | 50 s 436 ms |
 
-## Driving 테이블이 상품주문 테이블일 때가 더 빨랐다
+## Driving 테이블이 상품주문 테이블일 때가 더 빨랐다 
 
 지금까지 Driving Table의 개수를 줄여 NL Join의 반복 횟수를 줄이는 것이 좋은 성능을 낼 것이라고 생각했다. 하지만 개수가 적은 테이블이 Primary Index를 사용하여 조회된다면 MySQL의 특성상 Primary Index 조회가 매우 빨라 데이터가 많은 테이블이 Driving Table일 경우가 더 빠를 수 있다.
 
