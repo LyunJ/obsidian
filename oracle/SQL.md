@@ -81,35 +81,7 @@ SQL 프로세스의 첫번째 단계는 파싱이다. 이 단계는 다른 루�
 
 어플리케이션이 SQL 질의를 실행시키면, 어플리케이션은 parse call을 데이터베이스에 보내 질의 실행을 준비한다. Parse call은 세션의 priave SQL area를 다루는 cursor를 열거나 생성한다. cursor와 private SQL area는 PGA 안에 있다.
 
-parse call  동안, 데이터베이스는 다음과 같은 확인을 한다.
-- Syntax Check
-- Semantic Check
-- Shared Pool Check
-
-#### Syntax Check
-오라클 데이터베이스는 각각의 SQL 질의의 syntactic 유효성을 검증한다.
-
-#### Semantic Check
-질의의 Semantic은 질의의 의미를 말한다. 그러므로 semantic check은 질의가 의미있는지를 결정한다. 예를들어 질의의 column과 오브젝트가 존재하는지 여부다.
-
-#### Shared Pool Check
-Parse 단계에서, 데이터베이스는 질의 처리 중 자원을 사용하는 단계를 생략할 수 있을지 결정하기 위해 shared pool check를 한다. 이를 해내기 위해 데이터베이스는 해싱 알고리즘을 통해 모든 SQL 질의에 대해 hash 값을 생성한다. 질의의 해시 값은 V$SQL.SQL_ID에 보여지는 SQL ID 이다.
-
-유저가 SQL 질의를 실행시키면, 데이터베이스는 shared SQL area를 탐색하여 같은 해시 값을 가진 질의가 있는지 확인한다. SQL 질의의 해시 값은 다음 값으로부터 중복되지 않는다 :
-- 질의의 메모리 주소
-	- 오라클 데이터베이스는 SQL ID를 사용하여 조회 테이블에서 키 읽기를 수행한다. 이러한 방식으로 데이터베이스는 가능한 질의의 메모리 주소를 얻는다.
-- 질의의 실행 계획의 해시
-	- SQL 질의는 shared pool에 다수의 계획을 가질 수 있다. 각각의 계획은 다른 hash 값을 가진다. 만약 같은 SQL ID가 다수의 계획에 대한 해시 값을 가진다면 데이터베이스는 이 SQL ID가 다수의 계획을 가진 것을 알 수 있다.
-
-Parse 작업은 hash check이나 질의의 타입에 따라 다음의 카테고리로 분류된다 :
-- 하드 파싱
-	- 만약 오라클이 존재하는 코드를 재사용하지 않는다면, 어플리케이션 코드의 새로운 실행 가능한 버전을 빌드할 것이다. 이 작업은 하드 파싱이라고 불리고, 또는 library cache miss라고 불린다.
-- 소프트 파싱
-	- 소프트 파싱은 하드 파싱의 반대말로, library cache hit이라고 한다.
-
-![[cncpt251.gif]]
-
-만약 공유 풀에 있는 질의읭 해시 값이 동일하더라도 semantic 검사를 통해 의미가 동일한지 여부를 확인한다.
+parse call  동안, 데이터베이스는 다음과 같은 확인을 한다의 해시 값이 동일하더라도 semantic 검사를 통해 의미가 동일한지 여부를 확인한다.
 
 ```
 CREATE TABLE my_table ( some_col INTEGER );

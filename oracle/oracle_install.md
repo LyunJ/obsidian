@@ -48,9 +48,31 @@ make sysstat unixodbc
 ```
 
 ## xhost 설정
+### ssh 설정
+```
+# /etc/ssh/sshd_config
+X11Forwarding yes
+
+# bash
+systemctl restart sshd
 ```
 
+### xhost 설치
 ```
+yum install xorg-x11-xauth
+yum install xorg-x11-server-Xorg
+```
+
+이 후, 윈도우에 xming을 설치한다
+
+### 연결 확인
+#### putty
+세션을 실행하기 전에, `Connection > SSH > Auth > X11`에서 Enable X11 forwarding 체크 후 X display location을 `localhost:0.0`으로 설정
+![[Pasted image 20230816144657.png]]
+
+Putty가 자동으로 연결 설정을 하기 때문에 접속 후 xhost 명령어로 바로 확인이 가능함.
+
+
 
 ## 유저 및 그룹 생성
 
